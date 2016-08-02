@@ -1,6 +1,12 @@
 # ┌───────────────────────────────────────────────────────────────────────────┐
 # │ GnuPG configuration                                                       │
 # │ Use GnuPG's gpg-agent for SSH keys (instead of ssh-agent)                 │
+# │                                                                           │
+# │ This file needs to be sources by ~/.bashrc (or similar) if gpg-agent is   │
+# │ used instead of ssh-agent for SSH keys.                                   │
+# │                                                                           │
+# │ If this is not the case, just add "export GPG_TTY=$(tty)" to ~/.bashrc as │
+# │ stated in man page of gpg-agent.                                          │
 # └───────────────────────────────────────────────────────────────────────────┘
 
 # TODO: There seems to be a bug(?) when gpg is used for the first time to
