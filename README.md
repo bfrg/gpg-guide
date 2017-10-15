@@ -52,7 +52,7 @@ Some example configuration files can be found in this repository.
 
 ## Creating new keys
 
-Create a new key-pair (private and public key) by running:
+Create a new keypair (private and public key):
 ```bash
 $ gpg --full-gen-key
 ```
@@ -129,25 +129,36 @@ Useful commands:
 * `expire`: change expiration date of key
 * `adduid`: add email addresses to this key
 
+### Example: renew an expired key
+
+The expiration date of a key can be changed any time, even after it expired:
+```bash
+$ gpg --edit-key <key-id>
+# gpg> key 1
+# gpg> expire
+#  (follow prompts)
+# gpg> save
+```
+
 ### Example: add additional UID
 
 Additional email addresses can be added to the key:
 ```bash
 $ gpg --edit-key <key-id>
-gpg> adduid
-  Real name: Red Dragon
-  Email address: new_email@address.com
-  ... insert passphrase to unlock secret key ...
-gpg> save
+# gpg> adduid
+#   Real name: Red Dragon
+#   Email address: new_email@address.com
+#   ... insert passphrase to unlock secret key ...
+# gpg> save
 ```
 
 If more UIDs were added to a key, we can set a primary UID:
 ```bash
 $ gpg --edit-key <key-id>
-gpg> uid 2
-gpg> primary
-  ... insert passphrase to unlock secret key ...
-gpg> save
+# gpg> uid 2
+# gpg> primary
+#   ... insert passphrase to unlock secret key ...
+# gpg> save
 ```
 
 
@@ -215,7 +226,7 @@ When encrypting or decrypting a document, it is possible to have more than one
 private key in use. In this case, we need to select the active key with the
 option `--local-user <key-id>`. Otherwise the default key is used.
 
-To decrypt a file that has been encrypted with our own public key, run:
+Decrypt a file that has been encrypted with our own public key:
 ```bash
 $ gpg --output somefile.txt --decrypt somefile.txt.gpg
 ```
@@ -236,13 +247,14 @@ To avoid the risk that someone else claims to be you, it's useful to sign every
 document that is encrypted. If the encrypted document is modified in any way, a
 verification of the signature will fail.
 
-To sign a file with your own key, run:
+Sign a file with your own key:
 ```bash
 $ gpg --sign <file> --output <file.sig>
 ```
 
 Note that the file is compressed before being signed. The output will be in
-binary format and thus won't be legible. To make a clear text signature, run:
+binary format and thus won't be _human-readable_. To make a clear text
+signature, run:
 ```bash
 $ gpg --clearsign <file> --output <file.sig>
 ```
@@ -254,14 +266,13 @@ required to verify the signature.
 
 A disadvantage of above methods is that users who received the signed documents
 must edit the files to recover the original (since signature is now part of
-document). Therefore, it is also possible to make a detached signature to a
-file:
+document). It is also possible to make a detached signature to a file:
 ```bash
 $ gpg --armor --output <file.sig> --detach-sign <file>
 ```
 This is highly recommended when signing binary files (like tar archives).
 
-To sign and encrypt a file, run:
+Sign and encrypt a file:
 ```bash
 $ gpg --sign <file> [--armor] --encrypt --recipient <user-id> [--local-user <key-id>]
 ```
@@ -292,12 +303,12 @@ $ gpg --verify archive.tar.gz.asc archive.tar.gz
 
 Send public key to key server, so that others can retrieve the key:
 ```bash
-$ gpg --keyserver pool.sks-keyservers.net --send-keys <key-id>
+$ gpg --keyserver <keyserver-name> --send-keys <key-id>
 ```
 
 Find details about a key on the key server w/o importing it:
 ```bash
-$ gpg --search-keys <key-id> --keyserver hkp://subkeys.pgp.net
+$ gpg --search-keys <key-id> --keyserver <keyserver-name>
 ```
 
 Import key from key server:
@@ -325,13 +336,13 @@ Documents can be encrypted with a symmetric cipher using a passphrase. The
 default cipher used is AES-128 but can be changed with the `--cipher-algo`
 option.
 
-To encrypt a file using a symmetric key, run:
+Encrypt a file using a symmetric key:
 ```bash
 $ gpg --symmetric <file>
 ```
 This will create an encrypted file with a .gpg appended to the old file name.
 
-To decrypt the encrypted file, run
+Decrypt the encrypted file:
 ```bash
 $ gpg file.txt.gpg [--output file.txt]
 ```
