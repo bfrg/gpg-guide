@@ -76,7 +76,7 @@ $ gpg --list-sigs   # list signatures
 $ gpg --fingerprint # list fingerprints
 ```
 
-List secret keys:
+List private (secret) keys:
 ```bash
 $ gpg --list-secret-keys
 ```
