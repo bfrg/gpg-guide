@@ -21,7 +21,7 @@
 For a more thorough discussion see for instance [The GNU Privacy
 Handbook][gnu-handbook].
 
-In the following we will primarily discuss public key encryption. A brief
+In the following we will primarily discuss **public key encryption**. A brief
 introduction to symmetric key encryption is given in the last
 [section](#symmetric-key-encryption).
 
@@ -46,13 +46,12 @@ For most users the following files are sufficient:
   managing and downloading certificate revocation lists. A skeleton
   configuration file is generated on the very first run of `gpg`.
 
-
-Some example configuration files can be found in this repository.
+Example configuration files are included in this repository.
 
 
 ## Creating new keys
 
-Create a new keypair (private and public key):
+First create a new keypair (private and public key):
 ```bash
 $ gpg --full-gen-key
 ```
@@ -134,7 +133,7 @@ Useful commands:
 The expiration date of a key can be changed any time, even after it expired:
 ```bash
 $ gpg --edit-key <key-id>
-# gpg> key 1
+# gpg> key 1 (only if you need to update a sub-key, by default primary key is selected)
 # gpg> expire
 #  (follow prompts)
 # gpg> save
