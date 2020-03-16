@@ -7,7 +7,7 @@
    the key beforehand. Once they agree, the sender encrypts a document using the
    key, sends it to the receiver, and the receiver decrypts it using the same
    key. The primary problem with symmetric key encryption is the key exchange.
-   If there are _n_ people who need to communicate, then _n(n-1)/2_ keys are
+   If there are `n` people who need to communicate, then `n(n-1)/2` keys are
    needed for each pair of people to communicate privately.
 
 2. **Public key encryption:** This involves creation of a public and private key
@@ -15,8 +15,8 @@
    key is supposed to be shared with people who want to send you encrypted data.
    Documents are encrypted using the public key. Later the encrypted file is
    decrypted with the private key and a passphrase that was set during key
-   generation. As opposed to symmetric key encryption, only _n_ keypairs are
-   needed for _n_ people to communicate privately.
+   generation. As opposed to symmetric key encryption, only `n` keypairs are
+   needed for `n` people to communicate privately.
 
 For a more thorough discussion see for instance [The GNU Privacy
 Handbook][gnu-handbook].
@@ -320,7 +320,7 @@ the key server is established using a protocol called **hkps**.
 
 To fetch keys automatically from a key server as needed, add the following to
 `~/.gnupg/gpg.conf`:
-```conf
+```
 keyserver-options autokey-retrieve
 ```
 
@@ -343,7 +343,7 @@ This will create an encrypted file with a .gpg appended to the old file name.
 
 Decrypt the encrypted file:
 ```bash
-$ gpg file.txt.gpg [--output file.txt]
+$ gpg [--output myfile] --decrypt myfile.gpg
 ```
 The user will be prompted to enter the passphrase used to encrypt.
 
