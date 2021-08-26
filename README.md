@@ -260,7 +260,7 @@ $ gpg --clearsign <file> --output <file.sig>
 
 This causes the document to be wrapped in an ASCII-armored signature but
 otherwise does not modify the document. Hence, the content in a clear text
-signature is readable w/o any special software. **OpenPGP** software is only
+signature is readable without any special software. **OpenPGP** software is only
 required to verify the signature.
 
 A disadvantage of above methods is that users who received the signed documents
@@ -300,33 +300,51 @@ $ gpg --verify archive.tar.gz.asc archive.tar.gz
 
 ## Key servers
 
+Public keys can be registered with a public key server, so that others can
+retrieve the key without having to contact you directly.
+
 Send public key to key server, so that others can retrieve the key:
 ```bash
 $ gpg --keyserver <keyserver-name> --send-keys <key-id>
 ```
 
-Find details about a key on the key server w/o importing it:
+Find details about a key on the key server without importing it:
 ```bash
 $ gpg --search-keys <key-id> --keyserver <keyserver-name>
 ```
 
+Locate the key of a user by email address:
+```
+$ gpg --keyserver <keyserver-name> --auto-key-locate keyserver --locate-keys user@example.com
+```
+
 Import key from key server:
 ```bash
-$ gpg --recv-keys <key-id>
+$ gpg --receive-keys <key-id>
 ```
 
-The [sks keyservers pool][sks-pool] is often recommended. The communication with
-the key server is established using a protocol called **hkps**.
+Update all keys that have already been retrieved from a key server, e.g. with
+latest signature, user IDs, etc.:
+```
+$ gpg --refresh-keys
+```
 
-To fetch keys automatically from a key server as needed, add the following to
+To fetch keys automatically from a key server, add the following to
 `~/.gnupg/gpg.conf`:
 ```
-keyserver-options autokey-retrieve
+keyserver-options auto-key-retrieve
 ```
 
-More details on how to setup a key server, see [GPG Best
-Practices][best-practices]. Note that since GnuPG 2.1 some options have been
-moved to `dirmngr` and must be added to `~/.gnupg/dirmngr.conf`.
+To avoid repeatedly specifying the key server with `--keyserver`, set a default
+key server in `~/.gnupg/dirmngr.conf`:
+```
+keyserver hkps://keys.openpgp.org
+```
+
+A list of common key servers can be found in the [ArchWiki][arch-keyservers].
+
+A new way to retrieve public OpenPGP keys is provided through the **Web Key
+Directory**. More details can be found in the [GnuPG Wiki][wkd].
 
 
 ## Symmetric key encryption
@@ -360,9 +378,10 @@ The user will be prompted to enter the passphrase used to encrypt.
 
 [gnu-handbook]: https://www.gnupg.org/gph/en/manual.html
 [arch-gpg]: https://wiki.archlinux.org/index.php/GnuPG
-[sks-pool]: https://sks-keyservers.net/overview-of-pools.php#pool_hkps
+[arch-keyservers]: https://wiki.archlinux.org/title/GnuPG#Key_servers
 [best-practices]: https://riseup.net/en/gpg-best-practices
 [linux-crypto]: https://sanctum.geek.nz/arabesque/series/linux-crypto
 [howtoforge]: https://www.howtoforge.com/tutorial/linux-commandline-encryption-tools
 [madboa]: https://www.madboa.com/geek/gpg-quickstart
 [ana]: https://ekaia.org/blog/2009/05/10/creating-new-gpgkey
+[wkd]: https://wiki.gnupg.org/WKD
