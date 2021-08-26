@@ -314,7 +314,7 @@ $ gpg --keyserver <keyserver-name> --search-keys <key-id>
 ```
 
 Locate the key of a user by email address:
-```
+```bash
 $ gpg --keyserver <keyserver-name> --auto-key-locate keyserver --locate-keys user@example.com
 ```
 
