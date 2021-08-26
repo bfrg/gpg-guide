@@ -310,7 +310,7 @@ $ gpg --keyserver <keyserver-name> --send-keys <key-id>
 
 Find details about a key on the key server without importing it:
 ```bash
-$ gpg --search-keys <key-id> --keyserver <keyserver-name>
+$ gpg --keyserver <keyserver-name> --search-keys <key-id>
 ```
 
 Locate the key of a user by email address:
@@ -320,7 +320,7 @@ $ gpg --keyserver <keyserver-name> --auto-key-locate keyserver --locate-keys use
 
 Import key from key server:
 ```bash
-$ gpg --receive-keys <key-id>
+$ gpg --keyserver <keyserver-name> --receive-keys <key-id>
 ```
 
 Update all keys that have already been retrieved from a key server, e.g. with
