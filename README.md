@@ -165,7 +165,7 @@ $ gpg --edit-key <key-id>
 
 Export a public key to a 7-bit ASCII file:
 ```bash
-$ gpg --armor --output some-public.key --export <key-id>
+$ gpg --armor --output my-public.key --export <key-id>
 ```
 If no `<key-id>` has been entered, all present keys will be exported.
 
@@ -183,8 +183,8 @@ $ gpg --import some-public.key
 
 ## Revoke a key
 
-If for instance the private key bas been stolen, the UID has been changed or you
-forget the passphrase, it is immportant to notify others that the public key
+If, for instance, the private key bas been stolen, the UID has been changed, or
+you forgot the passphrase, it is important to notify others that the public key
 should no longer be used. After generating a new key it is recommended to
 immediately generate a **revocation certificate**:
 ```bash
@@ -242,7 +242,7 @@ Further options:
 
 ## Signing and checking signatures
 
-To avoid the risk that someone else claims to be you, it's useful to sign every
+To avoid the risk that someone else claims to be you, it is useful to sign every
 document that is encrypted. If the encrypted document is modified in any way, a
 verification of the signature will fail.
 
